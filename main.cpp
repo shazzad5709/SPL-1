@@ -70,6 +70,10 @@ int main()
             else
                 addInBetween(linenumber, text);
         }
+        if(choice == 2)
+        {
+            
+        }
 
     }
     return 0;
