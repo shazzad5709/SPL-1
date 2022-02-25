@@ -1,11 +1,14 @@
 #include<iostream>
 #include<fstream>
 #include<cstring>
+#include<stack>
 #include<map>
 using namespace std;
 
 map<string, bool> keywords;
 map<string, bool> varDec;
+stack<int> spacing;
+fstream code;
 
 bool declaredVar(string s)
 {
@@ -47,17 +50,18 @@ void parse()
     ifstream f;
     int i=7;
     f.open("huh.txt");
+    
     if (f.is_open())
     {
         while (getline(f, line) )
         {
-        if(substring(line))
-        {
-            cout<<"    cout << \"";
-            while(line[i]!='"')
-            cout<<line[i++];
-            cout<<"\";";
-        }
+            if(substring(line))
+            {
+                code<<"    cout << \"";
+                while(line[i]!='"')
+                code<<line[i++];
+                code<<"\";";
+            }
         }
         f.close();
     }
@@ -69,16 +73,18 @@ int main()
     cout<<"Algorithm to C++"<<endl;
     cout<<"-----------------"<<endl;
     string line;
-    char c;
-    ofstream f;
+    fstream f;
     f.open("huh.txt");
     getline(cin, line);
     f<<line;
     f.close();
+    code.open("code.txt");
     cout <<"---------------------------------------------------" << endl;
-    cout<<"#include<iostream>"<<endl;
-    cout<<"using namespace std;"<<endl;
-    cout<<"int main()"<<endl<<"{"<<endl;
+    code<<"#include<bits/stdc++.h>\n";
+    code<<"using namespace std;\n";
+    code<<"int main()\n{\n";
     parse();
-    cout<<"\n    return 0;\n}";
+    code<<"\n    return 0;\n}";
+    code.close();
+    return 0;
 }
