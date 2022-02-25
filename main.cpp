@@ -8,7 +8,7 @@ using namespace std;
 map<string, bool> keywords;
 map<string, bool> varDec;
 stack<int> spacing;
-fstream code;
+fstream code("code.txt");
 
 bool declaredVar(string s)
 {
@@ -29,8 +29,7 @@ int isKeywords(string s)
     keywords["do"]=true;
     keywords["break"]=true;
     keywords["continue"]=true;
-    // keywords["if"]=2;
-    // keywords["if"]=2;
+    return 1;
 }
   
 
@@ -67,6 +66,13 @@ void parse()
     }
 }
 
+void code_output()
+{
+    ifstream aaaa("code.txt");
+    if(aaaa.is_open())
+        cout<<aaaa.rdbuf();
+    aaaa.close();
+}
 
 int main()
 {
@@ -74,17 +80,18 @@ int main()
     cout<<"-----------------"<<endl;
     string line;
     fstream f;
-    f.open("huh.txt");
-    getline(cin, line);
-    f<<line;
-    f.close();
-    code.open("code.txt");
+    // f.open("huh.txt");
+    // getline(cin, line);
+    // f<<line;
+    // f.close();
+    // code.open("code.txt");
     cout <<"---------------------------------------------------" << endl;
     code<<"#include<bits/stdc++.h>\n";
     code<<"using namespace std;\n";
     code<<"int main()\n{\n";
     parse();
     code<<"\n    return 0;\n}";
+    code_output();
     code.close();
     return 0;
 }
