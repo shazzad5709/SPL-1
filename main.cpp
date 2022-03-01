@@ -17,24 +17,36 @@ bool isDelimiter(char x)
 void printFunction(string line)
 {
     int i=6;
-    if(line[i]=='"')
+    code<<"    cout <<";
+    while(i<line.length())
     {
-        i++;
-        code<<"    cout << \"";
-        while(line[i]!='"')
-            code<<line[i++];
-        code<<"\";";
-        return;
+        if(line[i]=='"')
+        {
+            i++;
+            //code<<"    cout << \"";
+            code<<" \"";
+            while(line[i]!='"')
+                code<<line[i++];
+            code<<"\"";
+            i++;
+        }
+        else if(line[i]==' ' || line[i]==',')
+        {   
+            if(line[i]==',')
+                code<<" << ";
+            i++;
+        }
+        else
+        {
+            //code<<"    cout<< ";
+            while((line[i]>='a' && line[i]<='z')
+                || (line[i]>='A' && line[i]<='Z') || line[i]=='_')
+                code<<line[i++];
+        }
+        
     }
-    else
-    {
-        code<<"    cout<< ";
-        while((line[i]>='a' && line[i]<='z')
-            || (line[i]>='A' && line[i]<='Z') || line[i]=='_')
-            code<<line[i++];
-        code<<";";
-        return;
-    }
+    code<<";";
+    return;
 }
 
 string extractKeyword(string line)
@@ -87,7 +99,8 @@ int main()
     // f<<line;
     // f.close();
     // code.open("code.txt");
-    cout <<"---------------------------------------------------" << endl;
+    cout<<"*reading algorithm from text file*\n";
+    cout<<"---------------------------------------------------" << endl;
     code<<"#include<bits/stdc++.h>\n";
     code<<"using namespace std;\n";
     code<<"int main()\n{\n";
