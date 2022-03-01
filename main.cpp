@@ -4,7 +4,7 @@
 
 using namespace std;
 
-fstream code("code.txt", ios::in | ios::out | ios::app);
+fstream code("code.txt", ios::in | ios::out);
 
 bool isDelimiter(char x)
 {
@@ -22,8 +22,18 @@ void printFunction(string line)
         i++;
         code<<"    cout << \"";
         while(line[i]!='"')
-        code<<line[i++];
+            code<<line[i++];
         code<<"\";";
+        return;
+    }
+    else
+    {
+        code<<"    cout<< ";
+        while((line[i]>='a' && line[i]<='z')
+            || (line[i]>='A' && line[i]<='Z') || line[i]=='_')
+            code<<line[i++];
+        code<<";";
+        return;
     }
 }
 
@@ -83,9 +93,9 @@ int main()
     code<<"int main()\n{\n";
     parse();
     code<<"\n    return 0;\n}";
-    code_output();
-    // if(code.is_open())
-    //     cout<<code.rdbuf();
     code.close();
+    code_output();
+    //cout<<code.rdbuf();
+    //code.close();
     return 0;
 }
