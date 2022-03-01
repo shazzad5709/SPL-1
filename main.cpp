@@ -1,69 +1,61 @@
 #include<iostream>
-#include<fstream>
-#include<cstring>
-#include<stack>
 #include<map>
+#include<fstream>
+
 using namespace std;
 
-map<string, bool> keywords;
-map<string, bool> varDec;
-stack<int> spacing;
-fstream code("code.txt");
+fstream code("code.txt", ios::in | ios::out | ios::app);
 
-bool declaredVar(string s)
+bool isDelimiter(char x)
 {
-  
-    if(!varDec[s])
-        return varDec[s]=true;
-    else
-        return false;
+    if(x==' ' || x=='(' || x==')' || x=='{'
+    || x=='}' || x=='['|| x==']'|| x=='\n')
+        return true;
+    return false;
 }
 
-int isKeywords(string s)
+void printFunction(string line)
 {
-	keywords["for"]=true;
-	keywords["if"]=true;
-    keywords["else if"]=true;
-    keywords["else"]=true;
-    keywords["while"]=true;
-    keywords["do"]=true;
-    keywords["break"]=true;
-    keywords["continue"]=true;
-    return 1;
+    int i=6;
+    if(line[i]=='"')
+    {
+        i++;
+        code<<"    cout << \"";
+        while(line[i]!='"')
+        code<<line[i++];
+        code<<"\";";
+    }
 }
-  
 
-
-bool substring(string line)
+string extractKeyword(string line)
 {
-    // string s="print";
-    // for(int i=0; i<5; i++)
-    //     if(s[i]!=line[i])
-    //         return 0;
-    return 1;
+    
+    string x;
+    int len=0;
+    for(int i=0; i<line.length(); i++)
+        if(isDelimiter(line[i])==false)
+            len++;
+        else
+            break;
+    x=line.substr(0, len);
+    return x;
 }
 
 void parse()
 {
     string line;
-    ifstream f;
-    int i=7;
-    f.open("huh.txt");
-    
-    if (f.is_open())
+    ifstream f("huh.txt");
+    if(f.is_open())
     {
-        while (getline(f, line) )
+        while(getline(f, line))
         {
-            if(substring(line))
-            {
-                code<<"    cout << \"";
-                while(line[i]!='"')
-                code<<line[i++];
-                code<<"\";";
-            }
+            string x=extractKeyword(line);;
+            
+            if(x=="print")
+                printFunction(line);
         }
-        f.close();
     }
+
 }
 
 void code_output()
@@ -92,6 +84,8 @@ int main()
     parse();
     code<<"\n    return 0;\n}";
     code_output();
+    // if(code.is_open())
+    //     cout<<code.rdbuf();
     code.close();
     return 0;
 }
