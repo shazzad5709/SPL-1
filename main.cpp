@@ -1,10 +1,13 @@
 #include<iostream>
 #include<map>
+#include<stack>
 #include<fstream>
 
 using namespace std;
 
 fstream code("code.txt", ios::in | ios::out);
+map<string, bool> variableDeclared;
+stack<string> indent;
 
 bool isDelimiter(char x)
 {
@@ -23,7 +26,6 @@ void printFunction(string line)
         if(line[i]=='"')
         {
             i++;
-            //code<<"    cout << \"";
             code<<" \"";
             while(line[i]!='"')
                 code<<line[i++];
@@ -38,7 +40,6 @@ void printFunction(string line)
         }
         else
         {
-            //code<<"    cout<< ";
             while((line[i]>='a' && line[i]<='z')
                 || (line[i]>='A' && line[i]<='Z') || line[i]=='_')
                 code<<line[i++];
@@ -47,6 +48,44 @@ void printFunction(string line)
     }
     code<<";";
     return;
+}
+
+void inputFunction(string line)
+{
+    variableDeclared["mahin"]=true;
+    variableDeclared["abc"]=true;
+    variableDeclared["x"]=variableDeclared["y"]=true;
+    string x;
+    int i=7;
+    while(i<line.length())
+    {
+        while(i<line.length())
+        {
+            if(line[i]==',' || line[i]==')')
+            {
+                i++;
+                break;
+            }
+            else if(line[i]==' ')
+                i++;
+            else
+            {
+                x.push_back(line[i]);
+                i++;
+            }
+        }
+        // cout<<x<<endl;
+        // cout<<variableDeclared[x]<<endl;
+        if(variableDeclared[x]==1)
+        {
+            if(i-x.length()-1==7)
+                code<<indent.top()<<"cin >> "<<x;
+            else if(i!=line.length()-2)
+                code<<" >> "<<x;
+        }
+        x.erase();
+    }
+    code<<";\n";
 }
 
 string extractKeyword(string line)
@@ -75,12 +114,14 @@ void parse()
             
             if(x=="print")
                 printFunction(line);
+            else if(x=="input")
+                inputFunction(line);
         }
     }
 
 }
 
-void code_output()
+void codeOutput()
 {
     ifstream aaaa("code.txt");
     if(aaaa.is_open())
@@ -104,11 +145,10 @@ int main()
     code<<"#include<bits/stdc++.h>\n";
     code<<"using namespace std;\n";
     code<<"int main()\n{\n";
+    indent.push("    ");
     parse();
-    code<<"\n    return 0;\n}";
+    code<<indent.top()<<"return 0;\n}";
     code.close();
-    code_output();
-    //cout<<code.rdbuf();
-    //code.close();
+    codeOutput();
     return 0;
 }
