@@ -7,6 +7,7 @@ using namespace std;
 
 fstream code("code.txt", ios::in | ios::out);
 map<string, bool> variableDeclared;
+map<string, string> varType;
 stack<string> indent;
 stack<int> algoIndent;
 
@@ -53,9 +54,9 @@ void printFunction(string line)
 
 void inputFunction(string line)
 {
-    variableDeclared["mahin"]=true;
-    variableDeclared["abc"]=true;
-    variableDeclared["x"]=variableDeclared["y"]=true;
+    // variableDeclared["mahin"]=true;
+    // variableDeclared["abc"]=true;
+    // variableDeclared["x"]=variableDeclared["y"]=true;
     string x;
     int i=7+algoIndent.top();
     while(i<line.length())
@@ -105,7 +106,40 @@ string extractKeyword(string line)
 
 void declareVariable(string line)
 {
+    int i=0+algoIndent.top();
+    string x;
+    while(line[i]!=' ')
+    {
+        x[i]=line[i++];
+    }
+    if(x=="int")
+    {
 
+    }
+    else if(x=="double")
+    {
+
+    }
+    else if(x=="float")
+    {
+
+    }
+    else if(x=="string")
+    {
+
+    }
+    else if(x=="char")
+    {
+
+    }
+    else if(x=="long")
+    {
+
+    }
+    else if(x=="long")
+    {
+        
+    }
 }
 
 void parse()
