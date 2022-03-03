@@ -8,6 +8,7 @@ using namespace std;
 fstream code("code.txt", ios::in | ios::out);
 map<string, bool> variableDeclared;
 stack<string> indent;
+stack<int> algoIndent;
 
 bool isDelimiter(char x)
 {
@@ -19,7 +20,7 @@ bool isDelimiter(char x)
 
 void printFunction(string line)
 {
-    int i=7;
+    int i=7+algoIndent.top();
     code<<"    cout <<";
     while(i<line.length())
     {
@@ -56,7 +57,7 @@ void inputFunction(string line)
     variableDeclared["abc"]=true;
     variableDeclared["x"]=variableDeclared["y"]=true;
     string x;
-    int i=7;
+    int i=7+algoIndent.top();
     while(i<line.length())
     {
         while(i<line.length())
@@ -102,6 +103,11 @@ string extractKeyword(string line)
     return x;
 }
 
+void declareVariable(string line)
+{
+
+}
+
 void parse()
 {
     string line;
@@ -116,6 +122,8 @@ void parse()
                 printFunction(line);
             else if(x=="input")
                 inputFunction(line);
+            else
+                declareVariable(line);
         }
     }
 
@@ -146,6 +154,7 @@ int main()
     code<<"using namespace std;\n";
     code<<"int main()\n{\n";
     indent.push("    ");
+    algoIndent.push(0);
     parse();
     code<<indent.top()<<"return 0;\n}";
     code.close();
