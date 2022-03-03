@@ -16,7 +16,7 @@ bool isDelimiter(char x)
 
 void printFunction(string line)
 {
-    int i=6;
+    int i=7;
     code<<"    cout <<";
     while(i<line.length())
     {
@@ -30,7 +30,7 @@ void printFunction(string line)
             code<<"\"";
             i++;
         }
-        else if(line[i]==' ' || line[i]==',')
+        else if(line[i]==' ' || line[i]==',' || line[i]==')')
         {   
             if(line[i]==',')
                 code<<" << ";
