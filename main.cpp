@@ -2,12 +2,15 @@
 #include<map>
 #include<stack>
 #include<fstream>
+#include<vector>
+#include<iterator>
 
 using namespace std;
 
 fstream code("code.txt", ios::in | ios::out);
 map<string, bool> variableDeclared;
 map<string, string> varType;
+vector<string> variables;
 stack<string> indent;
 stack<int> algoIndent;
 
@@ -48,7 +51,7 @@ void printFunction(string line)
         }
         
     }
-    code<<";";
+    code<<";\n";
     return;
 }
 
@@ -110,35 +113,58 @@ void declareVariable(string line)
     string x;
     while(line[i]!=' ')
     {
-        x[i]=line[i++];
+        x.push_back(line[i++]);
     }
-    if(x=="int")
+    i++;
+    while(i<line.length())
     {
+        string var;
+        while(i<line.length() && line[i]!=',')
+            var.push_back(line[i++]);
+        i++;
+        variableDeclared[var]=true;
+        //cout<<var<<"\n"<<variableDeclared[var]<<endl;
+        varType[var]=x;
+        variables.push_back(var);
+        var.erase();
+        vector<string>::iterator it;
+        int j=0;
+        if(x=="int")
+        {
+            code<<indent.top()<<x<<" ";
+            for(it=variables.begin(); it!=variables.end(); it++, j++)
+            {
+                code<<*it;
+                if(j<variables.size()-1)
+                    code<<", ";
+                else
+                    code<<";\n";
+            }
+        }
+        else if(x=="double")
+        {
 
-    }
-    else if(x=="double")
-    {
+        }
+        else if(x=="float")
+        {
 
-    }
-    else if(x=="float")
-    {
+        }
+        else if(x=="string")
+        {
 
-    }
-    else if(x=="string")
-    {
+        }
+        else if(x=="char")
+        {
 
-    }
-    else if(x=="char")
-    {
+        }
+        else if(x=="long")
+        {
 
-    }
-    else if(x=="long")
-    {
-
-    }
-    else if(x=="long")
-    {
-        
+        }
+        else if(x=="long")
+        {
+            
+        }
     }
 }
 
