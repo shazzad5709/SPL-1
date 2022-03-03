@@ -4,15 +4,16 @@
 #include<fstream>
 #include<vector>
 #include<iterator>
+#include<algorithm>
 
 using namespace std;
 
 fstream code("code.txt", ios::in | ios::out);
 map<string, bool> variableDeclared;
 map<string, string> varType;
-vector<string> variables;
 stack<string> indent;
 stack<int> algoIndent;
+map<string, bool> dataType;
 
 bool isDelimiter(char x)
 {
@@ -25,7 +26,7 @@ bool isDelimiter(char x)
 void printFunction(string line)
 {
     int i=7+algoIndent.top();
-    code<<"    cout <<";
+    code<<indent.top()<<"cout <<";
     while(i<line.length())
     {
         if(line[i]=='"')
@@ -46,7 +47,9 @@ void printFunction(string line)
         else
         {
             while((line[i]>='a' && line[i]<='z')
-                || (line[i]>='A' && line[i]<='Z') || line[i]=='_')
+                || (line[i]>='A' && line[i]<='Z') || line[i]=='_'
+                || line[i]=='+' || line[i]=='-' || line[i]=='*' 
+                || line[i]=='/' || line[i]=='%' )
                 code<<line[i++];
         }
         
@@ -57,9 +60,6 @@ void printFunction(string line)
 
 void inputFunction(string line)
 {
-    // variableDeclared["mahin"]=true;
-    // variableDeclared["abc"]=true;
-    // variableDeclared["x"]=variableDeclared["y"]=true;
     string x;
     int i=7+algoIndent.top();
     while(i<line.length())
@@ -79,26 +79,22 @@ void inputFunction(string line)
                 i++;
             }
         }
-        // cout<<x<<endl;
-        // cout<<variableDeclared[x]<<endl;
-        if(variableDeclared[x]==1)
-        {
             if(i-x.length()-1==7)
                 code<<indent.top()<<"cin >> "<<x;
             else if(i!=line.length()-2)
                 code<<" >> "<<x;
-        }
         x.erase();
     }
     code<<";\n";
+
+    return;
 }
 
 string extractKeyword(string line)
 {
-    
     string x;
     int len=0;
-    for(int i=0; i<line.length(); i++)
+    for(int i=algoIndent.top(); i<line.length(); i++)
         if(isDelimiter(line[i])==false)
             len++;
         else
@@ -107,8 +103,31 @@ string extractKeyword(string line)
     return x;
 }
 
+bool isDataType(string line)
+{
+    string p;
+    
+    dataType["int"]=true;
+    dataType["char"]=true;
+    dataType["long"]=true;
+    dataType["long long"]=true;
+    dataType["float"]=true;
+    dataType["double"]=true;
+    dataType["string"]=true;
+    int len=0;
+    for(int i=algoIndent.top(); i<line.length(); i++)
+        if(isDelimiter(line[i])==false)
+            len++;
+        else
+            break;
+    p=line.substr(0, len);
+    return dataType[p];
+    
+}
+
 void declareVariable(string line)
 {
+    vector<string> variables;
     int i=0+algoIndent.top();
     string x;
     while(line[i]!=' ')
@@ -116,56 +135,42 @@ void declareVariable(string line)
         x.push_back(line[i++]);
     }
     i++;
-    while(i<line.length())
+    if(dataType[x]==true)
     {
-        string var;
-        while(i<line.length() && line[i]!=',')
-            var.push_back(line[i++]);
-        i++;
-        variableDeclared[var]=true;
-        //cout<<var<<"\n"<<variableDeclared[var]<<endl;
-        varType[var]=x;
-        variables.push_back(var);
-        var.erase();
+        code<<indent.top()<<x<<" ";
+        while(i<line.length())
+        {
+            string var;
+            while(i<line.length() && line[i]!=',')
+                var.push_back(line[i++]);
+            i++;
+            variableDeclared[var]=true;
+            varType[var]=x;
+            variables.push_back(var);
+            var.erase();            
+        }
         vector<string>::iterator it;
         int j=0;
-        if(x=="int")
+        for(it=variables.begin(); it!=variables.end(); it++, j++)
         {
-            code<<indent.top()<<x<<" ";
-            for(it=variables.begin(); it!=variables.end(); it++, j++)
-            {
-                code<<*it;
-                if(j<variables.size()-1)
-                    code<<", ";
-                else
-                    code<<";\n";
-            }
+            code<<*it;
+            if(j<variables.size()-1)
+                code<<", ";
+            else
+                code<<";\n";
         }
-        else if(x=="double")
-        {
+    }    
+    return;
+}
 
-        }
-        else if(x=="float")
-        {
-
-        }
-        else if(x=="string")
-        {
-
-        }
-        else if(x=="char")
-        {
-
-        }
-        else if(x=="long")
-        {
-
-        }
-        else if(x=="long")
-        {
-            
-        }
-    }
+void statement(string line)
+{
+    int i=0+algoIndent.top();
+    code<<indent.top();
+    while(i<line.length())
+        code<<line[i++];
+    code<<";\n";
+    return;
 }
 
 void parse()
@@ -182,19 +187,20 @@ void parse()
                 printFunction(line);
             else if(x=="input")
                 inputFunction(line);
-            else
+            else if(isDataType(line)==true)
                 declareVariable(line);
+            else
+                statement(line);
         }
     }
-
 }
 
 void codeOutput()
 {
-    ifstream aaaa("code.txt");
-    if(aaaa.is_open())
-        cout<<aaaa.rdbuf();
-    aaaa.close();
+    ifstream aaaaa("code.txt");
+    if(aaaaa.is_open())
+        cout<<aaaaa.rdbuf();
+    aaaaa.close();
 }
 
 int main()
