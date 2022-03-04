@@ -8,12 +8,13 @@
 
 using namespace std;
 
-fstream code("code.txt", ios::in | ios::out);
+fstream code("code.txt", ios::in | ios::out | ios::trunc);
 map<string, bool> variableDeclared;
 map<string, string> varType;
 stack<string> indent;
 stack<int> algoIndent;
 map<string, bool> dataType;
+int curlCount=0;
 
 int countSpace(string line)
 {
@@ -205,6 +206,7 @@ void ifFunction(string line)
     while(i<line.length())
         c+=line[i++];
     code<<indent.top()<<"if "<<c<<endl<<indent.top()<<"{\n";
+    curlCount++;
     algoIndent.push(algoIndent.top()+4);
     //cout<<"if "<<algoIndent.top()<<endl;
     indent.top()+="    ";
@@ -240,6 +242,7 @@ void elseFunction(string line)
     }
     else
         code<<indent.top()<<"else\n"<<indent.top()<<"{\n";
+    curlCount++;
     algoIndent.push(algoIndent.top()+4);
     indent.top()+="    ";
 }
@@ -262,6 +265,7 @@ void parse()
                 string k(algoIndent.top()+4, ' ');
                 indent.push(k);
                 code<<indent.top()<<"}\n";
+                curlCount--;
                 //cout<<algoIndent.top()<<endl;
             }
 
@@ -277,6 +281,14 @@ void parse()
                 declareVariable(line);
             else
                 statement(line);
+        }
+        while(curlCount--)
+        {
+            algoIndent.pop();
+            indent.pop();
+            string k(algoIndent.top()+4, ' ');
+            indent.push(k);
+            code<<indent.top()<<"}\n";
         }
     }
 }
