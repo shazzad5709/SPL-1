@@ -214,11 +214,11 @@ void ifFunction(string line)
 
 void elseFunction(string line)
 {
-    cout<<"else "<<algoIndent.top()<<endl;
+    //cout<<"else "<<algoIndent.top()<<endl;
     
-    if(line.length()>4)
+    if(line.length()-countSpace(line)>4)
     {
-        string ln=line.substr(algoIndent.top()+5, algoIndent.top()+7);
+        string ln=line.substr(countSpace(line)+5, countSpace(line)+7);
         int i=2;
         string c, f;
         for(; i<ln.length()-4; i++)
@@ -250,6 +250,7 @@ void elseFunction(string line)
 void parse()
 {
     string line;
+    int ln=1;
     ifstream f("huh.txt");
     if(f.is_open())
     {
@@ -281,6 +282,7 @@ void parse()
                 declareVariable(line);
             else
                 statement(line);
+            //cout<<ln++<<" done\n";
         }
         while(curlCount--)
         {
