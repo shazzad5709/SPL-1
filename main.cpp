@@ -104,12 +104,12 @@ string extractKeyword(string line)
 {
     string x;
     int len=0;
-    for(int i=algoIndent.top(); i<line.length(); i++)
+    for(int i=countSpace(line); i<line.length(); i++)
         if(isDelimiter(line[i])==false)
             len++;
         else
             break;
-    x=line.substr(0, len);
+    x=line.substr(countSpace(line), len);
     return x;
 }
 
@@ -204,9 +204,9 @@ void ifFunction(string line)
     }
     while(i<line.length())
         c+=line[i++];
-    code<<indent.top()<<"if "<<c<<endl;
+    code<<indent.top()<<"if "<<c<<endl<<indent.top()<<"{\n";
     algoIndent.push(algoIndent.top()+4);
-    cout<<"if "<<algoIndent.top()<<endl;
+    //cout<<"if "<<algoIndent.top()<<endl;
     indent.top()+="    ";
 }
 
@@ -236,10 +236,10 @@ void elseFunction(string line)
         }
         while(i<line.length())
             c+=line[i++];
-        code<<indent.top()<<"if "<<c<<endl;
+        code<<indent.top()<<"if "<<c<<endl<<indent.top()<<"{\n";
     }
     else
-        code<<indent.top()<<"else\n";
+        code<<indent.top()<<"else\n"<<indent.top()<<"{\n";
     algoIndent.push(algoIndent.top()+4);
     indent.top()+="    ";
 }
@@ -256,10 +256,13 @@ void parse()
 
             if(countSpace(line)<algoIndent.top())
             {
+                //cout<<algoIndent.top()<<endl;
                 algoIndent.pop();
                 indent.pop();
-                string k(algoIndent.top(), ' ');
+                string k(algoIndent.top()+4, ' ');
                 indent.push(k);
+                code<<indent.top()<<"}\n";
+                //cout<<algoIndent.top()<<endl;
             }
 
             if(x=="print")
@@ -305,7 +308,7 @@ int main()
     indent.push("    ");
     algoIndent.push(0);
     parse();
-    code<<indent.top()<<"return 0;\n}";
+    code<<"    return 0;\n}";
     code.close();
     codeOutput();
     return 0;
