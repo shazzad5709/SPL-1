@@ -15,6 +15,16 @@ stack<string> indent;
 stack<int> algoIndent;
 map<string, bool> dataType;
 
+int countSpace(string line)
+{
+    int c=0;
+    for(int i=0; i<line.length(); i++)
+        if(line[i]==' ')
+            c++;
+        else
+            return c;
+}
+
 bool isDelimiter(char x)
 {
     if(x==' ' || x=='(' || x==')' || x=='{'
@@ -155,7 +165,7 @@ void declareVariable(string line)
         {
             code<<*it;
             if(j<variables.size()-1)
-                code<<", ";
+                code<<",";
             else
                 code<<";\n";
         }
@@ -173,6 +183,67 @@ void statement(string line)
     return;
 }
 
+void ifFunction(string line)
+{
+    int i=2+algoIndent.top();
+    string c;
+    for(; i<line.length()-4; i++)
+    {
+        if(line[i]=='a' && line[i+1]=='n' && line[i+2]=='d')
+        {
+            c+="&&";
+            i+=2;
+        }
+        else if(line[i]=='o' && line[i+1]=='r')
+        {
+            c+="||";
+            i+=1;
+        }
+        else
+            c.push_back(line[i]);
+    }
+    while(i<line.length())
+        c+=line[i++];
+    code<<indent.top()<<"if "<<c<<endl;
+    algoIndent.push(algoIndent.top()+4);
+    cout<<"if "<<algoIndent.top()<<endl;
+    indent.top()+="    ";
+}
+
+void elseFunction(string line)
+{
+    cout<<"else "<<algoIndent.top()<<endl;
+    
+    if(line.length()>4)
+    {
+        string ln=line.substr(algoIndent.top()+5, algoIndent.top()+7);
+        int i=2;
+        string c, f;
+        for(; i<ln.length()-4; i++)
+        {
+            if(ln[i]=='a' && ln[i+1]=='n' && ln[i+2]=='d')
+            {
+                c+="&&";
+                i+=2;
+            }
+            else if(ln[i]=='o' && ln[i+1]=='r')
+            {
+                c+="||";
+                i+=1;
+            }
+            else
+                c.push_back(ln[i]);
+        }
+        while(i<line.length())
+            c+=line[i++];
+        code<<indent.top()<<"if "<<c<<endl;
+    }
+    else
+        code<<indent.top()<<"else\n";
+    algoIndent.push(algoIndent.top()+4);
+    indent.top()+="    ";
+}
+
 void parse()
 {
     string line;
@@ -181,12 +252,24 @@ void parse()
     {
         while(getline(f, line))
         {
-            string x=extractKeyword(line);;
-            
+            string x=extractKeyword(line);
+
+            if(countSpace(line)<algoIndent.top())
+            {
+                algoIndent.pop();
+                indent.pop();
+                string k(algoIndent.top(), ' ');
+                indent.push(k);
+            }
+
             if(x=="print")
                 printFunction(line);
             else if(x=="input")
                 inputFunction(line);
+            else if(x=="if")
+                ifFunction(line);   //this function is for if
+            else if(x=="else")
+                elseFunction(line); //this function is for both else and else if
             else if(isDataType(line)==true)
                 declareVariable(line);
             else
