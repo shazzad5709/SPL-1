@@ -257,17 +257,17 @@ void parse()
         while(getline(f, line))
         {
             string x=extractKeyword(line);
-
-            if(countSpace(line)<algoIndent.top())
+            int gg=algoIndent.top()/(countSpace(line)+4);
+            while(gg--)
             {
-                //cout<<algoIndent.top()<<endl;
+                // cout<<algoIndent.top()<<endl;
+                // cout<<countSpace(line)<<endl;
                 algoIndent.pop();
                 indent.pop();
                 string k(algoIndent.top()+4, ' ');
                 indent.push(k);
                 code<<indent.top()<<"}\n";
                 curlCount--;
-                //cout<<algoIndent.top()<<endl;
             }
 
             if(x=="print")
