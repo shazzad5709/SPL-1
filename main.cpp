@@ -305,7 +305,7 @@ void codeOutput()
 
 int main()
 {
-    cout<<"Algorithm to C++"<<endl;
+    cout<<"PseudoCoder"<<endl;
     cout<<"-----------------"<<endl;
     string line;
     fstream f;
