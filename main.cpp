@@ -274,6 +274,8 @@ void parse()
         {
             string x=extractKeyword(line);
             int gg=algoIndent.top()/(countSpace(line)+4);
+            
+            //this while loop implements nested blocks
             while(gg--)
             {
                 // cout<<algoIndent.top()<<endl;
