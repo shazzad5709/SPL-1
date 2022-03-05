@@ -1,0 +1,12 @@
+int a, b, c
+input (a, b, c)
+if(a>b)
+    if(a>c)
+        print ("Largest: ", a)
+    else
+        print ("Largest: ", b)
+else
+    if(b>c)
+        print ("Largest: ", b)
+    else
+        print ("Largest: ", c)
