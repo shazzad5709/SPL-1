@@ -20,17 +20,21 @@ int countSpace(string line)
 {
     int c=0;
     for(int i=0; i<line.length(); i++)
+    {
         if(line[i]==' ')
             c++;
         else
             return c;
+    }
 }
 
 bool isDelimiter(char x)
 {
     if(x==' ' || x=='(' || x==')' || x=='{'
     || x=='}' || x=='['|| x==']'|| x=='\n')
+    {
         return true;
+    }
     return false;
 }
 
@@ -61,7 +65,9 @@ void printFunction(string line)
                 || (line[i]>='A' && line[i]<='Z') || line[i]=='_'
                 || line[i]=='+' || line[i]=='-' || line[i]=='*' 
                 || line[i]=='/' || line[i]=='%' )
+            {
                 code<<line[i++];
+            }
         }
         
     }
@@ -106,10 +112,12 @@ string extractKeyword(string line)
     string x;
     int len=0;
     for(int i=countSpace(line); i<line.length(); i++)
+    {
         if(isDelimiter(line[i])==false)
             len++;
         else
             break;
+    }
     x=line.substr(countSpace(line), len);
     return x;
 }
@@ -127,10 +135,12 @@ bool isDataType(string line)
     dataType["string"]=true;
     int len=0;
     for(int i=algoIndent.top(); i<line.length(); i++)
+    {
         if(isDelimiter(line[i])==false)
             len++;
         else
             break;
+    }
     p=line.substr(0, len);
     return dataType[p];
     
@@ -204,7 +214,9 @@ void ifFunction(string line)
             c.push_back(line[i]);
     }
     while(i<line.length())
+    {
         c+=line[i++];
+    }
     code<<indent.top()<<"if "<<c<<endl<<indent.top()<<"{\n";
     curlCount++;
     algoIndent.push(algoIndent.top()+4);
@@ -237,11 +249,15 @@ void elseFunction(string line)
                 c.push_back(ln[i]);
         }
         while(i<line.length())
+        {
             c+=line[i++];
+        }
         code<<indent.top()<<"if "<<c<<endl<<indent.top()<<"{\n";
     }
     else
+    {
         code<<indent.top()<<"else\n"<<indent.top()<<"{\n";
+    }
     curlCount++;
     algoIndent.push(algoIndent.top()+4);
     indent.top()+="    ";
@@ -299,7 +315,9 @@ void codeOutput()
 {
     ifstream aaaaa("code.txt");
     if(aaaaa.is_open())
+    {
         cout<<aaaaa.rdbuf();
+    }
     aaaaa.close();
 }
 
