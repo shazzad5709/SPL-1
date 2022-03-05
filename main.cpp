@@ -16,10 +16,23 @@ stack<int> algoIndent;
 map<string, bool> dataType;
 int curlCount=0;
 
+int length(string line)
+{
+    int len=0;
+    int i=0;
+    while(line[i]!='\0')
+    {
+        len++;
+        i++;
+    }
+    return len;
+}
+    //returns length of a string
+
 int countSpace(string line)
 {
     int c=0;
-    for(int i=0; i<line.length(); i++)
+    for(int i=0; i<length(line); i++)
     {
         if(line[i]==' ')
             c++;
@@ -42,7 +55,7 @@ string extractKeyword(string line)
 {
     string x;
     int len=0;
-    for(int i=countSpace(line); i<line.length(); i++)
+    for(int i=countSpace(line); i<length(line); i++)
     {
         if(isDelimiter(line[i])==false)
             len++;
@@ -64,7 +77,7 @@ void printFunction(string line)
 {
     int i=7+algoIndent.top();
     code<<indent.top()<<"cout <<";
-    while(i<line.length())
+    while(i<length(line))
     {
         if(line[i]=='"')
         {
@@ -102,9 +115,9 @@ void inputFunction(string line)
 {
     string x;
     int i=7+algoIndent.top();
-    while(i<line.length())
+    while(i<length(line))
     {
-        while(i<line.length())
+        while(i<length(line))
         {
             if(line[i]==',' || line[i]==')')
             {
@@ -119,9 +132,9 @@ void inputFunction(string line)
                 i++;
             }
         }
-            if(i-x.length()-1==7)
+            if(i-length(x)-1==7)
                 code<<indent.top()<<"cin >> "<<x;
-            else if(i!=line.length()-2)
+            else if(i!=length(line)-2)
                 code<<" >> "<<x;
         x.erase();
     }
@@ -143,7 +156,7 @@ bool isDataType(string line)
     dataType["double"]=true;
     dataType["string"]=true;
     int len=0;
-    for(int i=algoIndent.top(); i<line.length(); i++)
+    for(int i=algoIndent.top(); i<length(line); i++)
     {
         if(isDelimiter(line[i])==false)
             len++;
@@ -169,10 +182,10 @@ void declareVariable(string line)
     if(dataType[x]==true)
     {
         code<<indent.top()<<x<<" ";
-        while(i<line.length())
+        while(i<length(line))
         {
             string var;
-            while(i<line.length() && line[i]!=',')
+            while(i<length(line) && line[i]!=',')
                 var.push_back(line[i++]);
             i++;
             variableDeclared[var]=true;
@@ -199,7 +212,7 @@ void statement(string line)
 {
     int i=0+algoIndent.top();
     code<<indent.top();
-    while(i<line.length())
+    while(i<length(line))
         code<<line[i++];
     code<<";\n";
     return;
@@ -210,7 +223,7 @@ void ifFunction(string line)
 {
     int i=2+algoIndent.top();
     string c;
-    for(; i<line.length()-4; i++)
+    for(; i<length(line)-4; i++)
     {
         if(line[i]=='a' && line[i+1]=='n' && line[i+2]=='d')
         {
@@ -225,7 +238,7 @@ void ifFunction(string line)
         else
             c.push_back(line[i]);
     }
-    while(i<line.length())
+    while(i<length(line))
     {
         c+=line[i++];
     }
@@ -241,7 +254,7 @@ void elseFunction(string line)
 {
     //cout<<"else "<<algoIndent.top()<<endl;
     
-    if(line.length()-countSpace(line)>4)
+    if(length(line)-countSpace(line)>4)
     {
         string ln=line.substr(countSpace(line)+5, countSpace(line)+7);
         int i=2;
@@ -261,7 +274,7 @@ void elseFunction(string line)
             else
                 c.push_back(ln[i]);
         }
-        while(i<line.length())
+        while(i<length(line))
         {
             c+=line[i++];
         }
