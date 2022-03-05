@@ -38,6 +38,28 @@ bool isDelimiter(char x)
     return false;
 }
 
+string extractKeyword(string line)
+{
+    string x;
+    int len=0;
+    for(int i=countSpace(line); i<line.length(); i++)
+    {
+        if(isDelimiter(line[i])==false)
+            len++;
+        else
+            break;
+    }
+    x=line.substr(countSpace(line), len);
+    return x;
+}
+    /*
+    determines whether a line of the algorithm
+    is a general statement or it performs a 
+    specific function
+    if it performs a function, it returns which
+    function it performs
+    */
+
 void printFunction(string line)
 {
     int i=7+algoIndent.top();
@@ -74,6 +96,7 @@ void printFunction(string line)
     code<<";\n";
     return;
 }
+    //handles output stream
 
 void inputFunction(string line)
 {
@@ -106,21 +129,7 @@ void inputFunction(string line)
 
     return;
 }
-
-string extractKeyword(string line)
-{
-    string x;
-    int len=0;
-    for(int i=countSpace(line); i<line.length(); i++)
-    {
-        if(isDelimiter(line[i])==false)
-            len++;
-        else
-            break;
-    }
-    x=line.substr(countSpace(line), len);
-    return x;
-}
+    //handles input stream
 
 bool isDataType(string line)
 {
@@ -145,6 +154,7 @@ bool isDataType(string line)
     return dataType[p];
     
 }
+    //determines what datatype a variable is
 
 void declareVariable(string line)
 {
@@ -183,6 +193,7 @@ void declareVariable(string line)
     }    
     return;
 }
+    //declares variable by acknowledging datatype
 
 void statement(string line)
 {
@@ -193,6 +204,7 @@ void statement(string line)
     code<<";\n";
     return;
 }
+    //handles a general statement
 
 void ifFunction(string line)
 {
@@ -223,6 +235,7 @@ void ifFunction(string line)
     //cout<<"if "<<algoIndent.top()<<endl;
     indent.top()+="    ";
 }
+    //handles if conditions
 
 void elseFunction(string line)
 {
@@ -262,12 +275,13 @@ void elseFunction(string line)
     algoIndent.push(algoIndent.top()+4);
     indent.top()+="    ";
 }
+    //handles both 'else if' and 'else'
 
 void parse()
 {
     string line;
     int ln=1;
-    ifstream f("huh.txt");
+    ifstream f("algo.txt");
     if(f.is_open())
     {
         while(getline(f, line))
@@ -312,6 +326,8 @@ void parse()
         }
     }
 }
+    //categorize every line of the algorithm
+    //and sends it to specific function
 
 void codeOutput()
 {
@@ -322,7 +338,7 @@ void codeOutput()
     }
     aaaaa.close();
 }
-
+    //prints the generated code in terminal
 int main()
 {
     cout<<"PseudoCoder"<<endl;
