@@ -1,6 +1,4 @@
-                                                                PseudoCoder
-  
-PseodoCoder is an algorithm interpreter program that runs on a terminal. When given an algorithm as input, it parses it, generates C++ code, and saves it in a text file.
+PseudoCoder
+PseodoCoder is a terminal-based algorithm interpreter program. Upon taking an algorithm as input, it parses the given algorithm and generates a C++ code and stores it in a text file.
 
-
-The goal of this program is to make the learning process of beginning programming students easier. They can concentrate on solving a problem and writing an algorithm for that problem, and then use this program to generate code, allowing them to concentrate on the problem solving rather than the coding syntax. As they improve at understanding and solving problems, they will be able to learn more complex coding.
+The objective of this program is to ease the learning process of beginner programming students. They can mainly focus on solving a problem and write an algorithm for said problem, and they can use this program to generate a code, which will result in more focus on the problem solving part instead of focusing more on the coding syntax. As they start to get better on understanding and solving the problem first, they can then start learning more complex coding.
