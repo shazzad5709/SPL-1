@@ -19,6 +19,7 @@ using namespace tinyxml2;
 
 Info info;
 
+
 int main()
 {
     info = consoleUI();
@@ -26,8 +27,5 @@ int main()
     XMLDocument doc;
     doc.LoadFile(info.umlPath.c_str());
     auto elementList = doc.FirstChildElement("diagram");
-
-    globalPackage.coordinates = Rectangle (
-        
-    )
+    
 }
