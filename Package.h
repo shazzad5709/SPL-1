@@ -2,34 +2,32 @@
 
 #include <vector>
 #include "Rectangle.h"
-#include "ClassData.h"
+#include "ClassInfo.h"
 
 #include "tinyxml2.h"
 
-using namespace std;
-
 struct Package
 {
-    string name;
+    std::string name;
     Rectangle coords;
-    vector<Package> subPackages;
+    std::vector<Package> subPackages;
 
     bool insert(const Package& sub)
     {
         if(!coords.contains(sub.coords))
             return false;
 
-        for(auto& subPac : subPackages)
-            if(subPac.insert(sub))
+        for(auto& subsub : subPackages)
+            if(subsub.insert(sub))
                 return true;
 
         subPackages.push_back(sub);
         return true;
     }
 
-    void makeDirectories(const string& dest)
+    void makeDirectories(const std::string& dest)
     {
-        string packageDest = dest + name + '/';
+        std::string packageDest = dest + name + '/';
 
         mkdir(packageDest.c_str());
 
@@ -37,35 +35,35 @@ struct Package
             sub.makeDirectories(packageDest);
     }
 
-    string getDestination(const ClassData& classData) const
+    std::string getDestination(const ClassInfo& classInfo) const
     {
-        if(!coords.contains(classData.coords))
-            throw runtime_error("cannot parse destination!");
+        if(!coords.contains(classInfo.coords))
+            throw std::runtime_error("cannot parse destination!");
 
         for(auto& sub : subPackages)
-            if(sub.coords.contains(classData.coords))
-                return name + '/' + sub.getDestination(classData);
+            if(sub.coords.contains(classInfo.coords))
+                return name + '/' + sub.getDestination(classInfo);
 
         return name + '/';
     }
 
-    int getDepth(const ClassData& classData) const
+    int getDepth(const ClassInfo& classInfo) const
     {
         for(auto& sub : subPackages)
-            if(sub.coords.contains(classData.coords))
-                return sub.getDepth(classData) + 1;
+            if(sub.coords.contains(classInfo.coords))
+                return sub.getDepth(classInfo) + 1;
 
         return 0;
     }
 
-    string getPath(const ClassData& from, const ClassData& to) const
+    std::string getPath(const ClassInfo& from, const ClassInfo& to) const
     {
         for(auto& sub : subPackages)
             if( sub.coords.contains(from.coords)
             &&  sub.coords.contains(to.coords) )
                 return sub.getPath(from, to);
 
-        string back;
+        std::string back;
 
         for(size_t k=0 ; k<getDepth(from); k++)
             back += "../";

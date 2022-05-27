@@ -2,42 +2,39 @@
 
 #include <vector>
 #include <algorithm>
-#include <iostream>
+
 #include "Encapsulation.h"
 #include "Utility.h"
-using namespace std;
 
-struct Attribute {
+struct Attribute
+{
     Encapsulation encapsulation;
-    string type;
-    string name;
-    vector<string> fields;
+    std::string type;
+    std::string name;
+    std::vector<std::string> fields;
 
-    bool hasField(const string& f) const
-    {
-        return find(fields.begin(), fields.end(), f) != fields.end();
+    bool hasField(const std::string& p) const {
+        return std::find(fields.begin(), fields.end(), p) != fields.end();
     }
 
-    string getSingularName() const
-    {
-        for(auto& field: fields)
-        {
-            if(field.find("singular")==0)
+    std::string getSingularName() const {
+        for(auto& property : fields)
+            if(property.find("singular")==0)
             {
-                size_t begin = field.find('(');
-                size_t end = field.find(')');
-                return field.substr(begin+1, end-begin-1);
+                size_t begin = property.find('(');
+                size_t end = property.find(')');
+
+                return property.substr(begin+1, end-begin-1);
             }
-        }
 
         return "";
     }
 
-    string normalName() const {
+    std::string normalName() const {
         return normalizeName(name);
     }
 
-    string normalSingularName() const {
+    std::string normalSingularName() const {
         return normalizeName(getSingularName());
     }
 
@@ -47,7 +44,7 @@ struct Attribute {
     }
 };
 
-bool isStdType(const string& str)
+bool isStdType(const std::string& str)
 {
     return
     str == "string" ||
@@ -57,7 +54,7 @@ bool isStdType(const string& str)
     str.find("_ptr") < str.length();
 }
 
-string checkStdNamespace(string attrType)
+std::string checkStdNamespace(std::string attrType)
 {
     size_t begin = attrType.find('<');
 
@@ -67,7 +64,7 @@ string checkStdNamespace(string attrType)
         else
             return attrType;
 
-    string str = checkStdNamespace(attrType.substr(0, begin)) + "<";
+    std::string str = checkStdNamespace(attrType.substr(0, begin)) + "<";
 
     size_t end = attrType.find_last_of('>');
 
@@ -84,11 +81,11 @@ string checkStdNamespace(string attrType)
     return str + attrType.substr(end);
 }
 
-Attribute parseAttribute(const string& line)
+Attribute parseAttribute(const std::string& line)
 {
     Attribute attr;
 
-    string str;
+    std::string str;
     for(size_t k=0;k<line.length();k++)
         if(line[k] !=' ')
             str += line[k];

@@ -4,45 +4,27 @@
 
 using namespace std;
 
-// enum DefaultReturnType
-// {
-//     Empty,
-//     DEFAULT_VALUE,
-//     THROW_EXCEPTION
-// };
-
 struct Info
 {
     string umlPath = "";
-    string sourcePath = "";
+    string srcCodePath = "";
 
-    // bool generateDocument = true;
-    // bool generateClassDescription = true;
-    // bool generateAttributeProperties = true;
-    // bool generateConstructors = true;
-    // string notice = "";
-
-    // bool generateImplAttributes = true;
-    // bool generateImplConstructors = true;
-    // bool generateImplEmptyMethods = true;
-    // DefaultReturnType defaultReturnType = THROW_EXCEPTION;
 };
 
-bool hasEnding(std::string const &fullString, std::string const &ending)
-{
+bool hasEnding (string const &fullString, string const &ending) {
     if (fullString.length() >= ending.length())
-        return (fullString.compare(fullString.length() - ending.length(), ending.length(), ending) == 0);
-
+        return (0 == fullString.compare (fullString.length() - ending.length(), ending.length(), ending));
+    
     else
         return false;
 }
 
-string selectDiagram()
+string selectUmlFile()
 {
-    cout << "Directory of the Diagram (.uxf file): " << endl;
+    cout<<"Path of UML Diagram:"<<endl;
 
     string filePath;
-    cin >> filePath;
+    cin>>filePath;
 
     filePath.substr(0, filePath.find('\n'));
 
@@ -51,36 +33,41 @@ string selectDiagram()
     while(!f.good() || !hasEnding(filePath, ".uxf"))
     {
         if(!f.good())
-            cout << "The file could not be found" << endl;
+            cout<<"Error! The file could not be found!"<<endl;
         else
-            cout << "The file not an uxf file" << endl;
+            cout<<"The file not an uxf file"<<endl;
 
-        cout << "Please try again" << endl;
-        cin >> filePath;
+        cout<<"Please try again"<<endl;
+        cin>>filePath;
     }
     
     return filePath;
 }
 
-string selectSourceCodePath()
+string selectFolderPath()
 {
-    cout << "Directory in which the source code will be generated: " << endl;
-
+    cout<<"Folder path of generated codes:"<<endl;
     string folderPath;
-    cin >> folderPath;
+    cin>>folderPath;
 
-    if(folderPath.back() != '/')
-        folderPath += '/';
+    if(folderPath.back()!='/')
+        folderPath+='/';
 
     return folderPath;
+}
+
+const char* onOrOff(bool b) {
+    return b ? "[ON]" : "[OFF]";
 }
 
 Info consoleUI()
 {
     Info info;
-
-    info.umlPath = selectDiagram();
-    info.sourcePath = selectSourceCodePath();
-
+    int x;
+    cout<<"0. Exit\n";
+    cin>>x;
+    if(x==0) exit(1);
+    info.umlPath=selectUmlFile();
+    info.srcCodePath=selectFolderPath();
     return info;
 }

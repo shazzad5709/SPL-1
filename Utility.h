@@ -1,44 +1,40 @@
 #pragma once
-
-#include <iostream>
 #include <string>
-#include <vector>
-using namespace std;
 
+using namespace std;
 
 string normalizeName(const string& name)
 {
-    string normalName;
+    string normal;
 
-    for(char c: name)
-    {
+    for(char c : name)
         if(isupper(c))
-            (normalName+=' ')+=tolower(c);
+            (normal+=' ')+=tolower(c);
         else
-            normalName+=c;
-    }
-    return normalName;
+            normal+=c;
+
+    return normal;
 }
 
-string capitalize(string str)
+string capitalize(std::string str)
 {
     str[0]=toupper(str[0]);
     return str;
 }
 
-vector<string> split(const string& s, const string& delimiter)
+vector<string> split(const string& s, const string& delim)
 {
     vector<string> split;
 
-    auto start = 0U;
-    auto end = s.find(delimiter);
-    while(end!=string::npos)
+    auto start=0U;
+    auto end=s.find(delim);
+    while (end!=string::npos)
     {
         split.push_back(s.substr(start, end-start));
-        start = end+delimiter.length();
-        end = s.find(delimiter, start);
+        start=end+delim.length();
+        end=s.find(delim, start);
     }
-    
+
     split.push_back(s.substr(start, end));
     return split;
 }
@@ -46,12 +42,10 @@ vector<string> split(const string& s, const string& delimiter)
 vector<string> splitArguments(const string& line)
 {
     vector<string> arguments;
-    int level = 0;
-
+    int level=0;
     size_t previousIndex=0;
 
     for(size_t k=0; k<line.length();k++)
-    {
         if(line[k]=='<')
         {
             level++;
@@ -71,8 +65,8 @@ vector<string> splitArguments(const string& line)
             }
             break;
         }
-    }
 
     arguments.push_back(line.substr(previousIndex));
+
     return arguments;
 }
