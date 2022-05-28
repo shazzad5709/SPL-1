@@ -1,10 +1,18 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>440</x><y>180</y><w>330</w><h>100</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element>
+<id>UMLClass</id>
+<coordinates><x>440</x><y>180</y><w>330</w><h>100</h></coordinates>
+<panel_attributes>&lt;&lt;interface&gt;&gt;
 Function
 --
 #type: size_t [get]
 --
 /+solve(variables: map&lt;string, double&gt;&amp;): double/
-/+derivative(variable: string): unique_ptr&lt;Function&gt;/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>40</x><y>250</y><w>330</w><h>100</h></coordinates><panel_attributes>ConstFunction
+/+derivative(variable: string): unique_ptr&lt;Function&gt;/
+</panel_attributes>
+<additional_attributes></additional_attributes>
+</element>
+<element>
+<id>UMLClass</id><coordinates><x>40</x><y>250</y><w>330</w><h>100</h></coordinates><panel_attributes>ConstFunction
 --
 -constant: double [get]
 --

@@ -1075,6 +1075,127 @@ void writeInImpl(ostream& os, const ClassInfo& classInfo)
     writeMethodsInImpl(os, classInfo);
 }
 
+void writeJavaAttributes(ostream& os, const vector<Attribute>& attributes, const string& className)
+{    
+    for(const Attribute& attribute: attributes)
+    {
+        if(attribute.encapsulation!=PUBLIC)
+            os<<"\t"<<attribute.encapsulation<<" "<<attribute.type<<" "<<attribute.name<<";\n";
+        else
+            os<<"\t"<<attribute.type<<" "<<attribute.name<<";\n";
+    }
+}
+
+void writeJavaMethods(ostream& os, const vector<Attribute>& attributes, const ClassInfo& classInfo)
+{
+    for(const Attribute& attribute: attributes)
+    {
+        
+        //getter and setter
+        if(attribute.encapsulation==PRIVATE)
+        {
+            os<<"\tpublic "<<attribute.type
+                <<" get"<<capitalize(attribute.name)
+                <<"() {\n\t\treturn "<<attribute.name
+                <<";\n\t}\n\n";
+            os<<"\tpublic "<<attribute.type
+                <<" set"<<capitalize(attribute.name)
+                <<"("<<attribute.type<<" new"
+                <<capitalize(attribute.name)
+                <<") {\n\t\t"<<attribute.name
+                <<" = new"<<capitalize(attribute.name)
+                <<";\n\t}\n\n";
+        }
+    }
+
+    for(const Method& method: classInfo.methods)
+    {
+        if(method.name==classInfo.name)
+        {
+            vector<string> baseClassesArguments;
+            os<<classInfo.name<<" (";
+            
+            if(method.argument.size()>0)
+            {
+                if(method.argument[0].type.empty())
+                {
+                    const Attribute* argument=classInfo.getAttributeByName(method.argument[0].name);
+                    string type=argument->type;
+                    os<<method.argument[0].name<<"_";
+
+                    if(!hasAttributeWithName(classInfo.attributes, argument->type))
+                        baseClassesArguments.push_back(argument->name);
+                }
+                else
+                    os<<method.argument[0].type<<" "<<method.argument[0].name;
+                
+                for(size_t k=1; k<method.argument.size(); k++)
+                {
+                    os<<", ";
+                    if(method.argument[k].type.empty())
+                    {
+                        const Attribute* argument=classInfo.getAttributeByName(method.argument[k].name);
+                        string type=argument->type;
+                        os<<method.argument[k].name<<"_";
+
+                        if(!hasAttributeWithName(classInfo.attributes, argument->type))
+                            baseClassesArguments.push_back(argument->name);
+                    }
+                    else
+                        os<<method.argument[k].type<<" "<<method.argument[k].name;
+                }
+
+                os<<") {\n";
+                for(size_t k=0; k<method.argument.size(); k++)
+                    os<<classInfo.attributes[k].name<<" = "<<method.argument[k].name<<";\n";
+                os<<"}\n\n";
+            }
+
+        }
+        else
+        {
+            os<<method.encapsulation<<" ";
+            if(!method.returnType.empty())
+                os<<method.returnType<<" ";
+            else
+                os<<"void ";
+            
+            os<<method.name<<"(";
+            if(method.argument.size()>0)
+            {
+                os<<method.argument[0].type<<" "<<method.argument[0].name;
+                for(size_t k=1; k<method.argument.size(); k++)
+                    os<<", "<<method.argument[k].type<<" "<<method.argument[k].name;
+            }
+
+            os<<") {\n";
+
+            if(method.returnType==""||method.returnType=="void")
+                os<<"}\n\n";
+            else
+                os<<"\t"<<method.returnType<<" autoGen;\n"<<"return autoGen;\n}\n\n";
+        }
+    }
+}
+
+void writeInJavaClass(ostream& os, const ClassInfo& classInfo)
+{
+    os<<"class "<<classInfo.name;
+    if(classInfo.inheritances.size()!=0)
+    {
+        if(classInfo.inheritances[0].baseClass.isInterface)
+            os<<" implements ";
+        else
+            os<<" extends ";
+        os<<classInfo.inheritances[0].baseClass.name;
+    }
+    os<<" {\n";
+    writeJavaAttributes(os, classInfo.attributes, classInfo.name);
+    os<<endl;
+    writeJavaMethods(os, classInfo.attributes, classInfo);
+    os<<"}";
+}
+
 bool hasClassContainingPoint(vector<ClassInfo>& classesInfo, const Point& point)
 {
     for(auto& classInfo : classesInfo)
@@ -1084,7 +1205,25 @@ bool hasClassContainingPoint(vector<ClassInfo>& classesInfo, const Point& point)
     return false;
 }
 
-void writeFiles(const ClassInfo& classInfo, const string& fileDestination)
+void writeInJavaInterface(ostream& os, const ClassInfo& classInfo)
+{
+    os<<"interface "<<classInfo.name<<" {\n";
+    
+    for(const Method& method: classInfo.methods)
+    {
+        os<<method.returnType<<" "<<method.name<<"(";
+        if(method.argument.size()>0)
+        {
+            os<<method.argument[0].type<<" "<<method.argument[0].name;
+            for(size_t k=1; k<method.argument.size(); k++)
+                os<<", "<<method.argument[k].type<<" "<<method.argument[k].name;
+        }
+        os<<");\n";
+    }
+    
+}
+
+void writeCpp(const ClassInfo& classInfo, const string& fileDestination)
 {
     ofstream ofsh(fileDestination+classInfo.name+".h");
     writeInHeader(ofsh, classInfo);
@@ -1098,12 +1237,18 @@ void writeFiles(const ClassInfo& classInfo, const string& fileDestination)
 
 void writeJava(const ClassInfo& classInfo, const string& fileDestination)
 {
-    ofstream ofsh(fileDestination+classInfo.name+".java");
-    //writeInJavaImpl(ofsh, classInfo);
+    ofstream ofjc(fileDestination+classInfo.name+".java");
+    if(classInfo.isInterface)
+    {
+        ofstream ofji(fileDestination+classInfo.name+".java");
+        writeInJavaInterface(ofji, classInfo);
+    }
+    else
+        writeInJavaClass(ofjc, classInfo);
 }
 
 int main()
-{
+{    
     info = consoleUI();
 
     XMLDocument doc;
@@ -1163,8 +1308,20 @@ int main()
         if(string(elem->FirstChildElement("id")->GetText())=="Relation")
             createRelation(parseRelation(elem));
     
-    for (auto& classInfo : classesInfo)
-        writeFiles(classInfo, globalPackage.getDestination(classInfo));
+    cout<<"\n\t1. C++\n\t2. Java\n\nLanguage: ";
+    int l;
+    cin>>l;
+    
+    if(l==1)
+    {
+        for (auto& classInfo : classesInfo)
+        writeCpp(classInfo, globalPackage.getDestination(classInfo));
+    }
+    else if(l==2)
+    {
+        for (auto& classInfo : classesInfo)
+        writeJava(classInfo, globalPackage.getDestination(classInfo));
+    }
 
     std::cout << "The files have been generated successfully" << std::endl;
     return 0;
