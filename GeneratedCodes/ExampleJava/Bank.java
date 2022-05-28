@@ -9,7 +9,7 @@ class Bank {
 		return bankID;
 	}
 
-	public setBankID(int newBankID) {
+	public void setBankID(int newBankID) {
 		this.bankID = newBankID;
 	}
 
@@ -17,7 +17,7 @@ class Bank {
 		return name;
 	}
 
-	public setName(String newName) {
+	public void setName(String newName) {
 		this.name = newName;
 	}
 
@@ -25,7 +25,7 @@ class Bank {
 		return address;
 	}
 
-	public setAddress(String newAddress) {
+	public void setAddress(String newAddress) {
 		this.address = newAddress;
 	}
 
@@ -33,7 +33,7 @@ class Bank {
 		return tellers;
 	}
 
-	public setTellers(Teller newTellers) {
+	public void setTellers(Teller newTellers) {
 		this.tellers = newTellers;
 	}
 
@@ -41,7 +41,7 @@ class Bank {
 		return customers;
 	}
 
-	public setCustomers(Customer newCustomers) {
+	public void setCustomers(Customer newCustomers) {
 		this.customers = newCustomers;
 	}
 

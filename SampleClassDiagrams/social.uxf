@@ -1,0 +1,58 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>80</x><y>350</y><w>270</w><h>130</h></coordinates><panel_attributes>Member
+--
++name: string
++email: string
+-passwordHash: string
+--
+/+changePassword(old: string, new: string): void/
+/+verifyPassword(password: string): void/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>570</y><w>140</w><h>80</h></coordinates><panel_attributes>Section
+--
++name: string
+--
++getArticles(): Article[]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>160</x><y>640</y><w>100</w><h>60</h></coordinates><panel_attributes>Admin
+--
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>580</x><y>330</y><w>260</w><h>180</h></coordinates><panel_attributes>Article
+--
++title: string
++description: string
++content: string
++rating: double
++state: string
+-ratingCount: int
++url: string
+--
+/+addComment(comment: Comment): void/
+/+removeComment(comment: Comment): void/
+/+rate(start: int): void/
+/+getComments(): Comment[]/
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>390</x><y>310</y><w>110</w><h>80</h></coordinates><panel_attributes>Comment
+--
++date: DateTime
++text: string
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>330</x><y>570</y><w>220</w><h>100</h></coordinates><panel_attributes>SectionManager
+--
+--
+/+addSection(name: string): void/
+/+removeSection(name: string): void/
+/+getSections(): Section[]/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>100</x><y>110</y><w>280</w><h>180</h></coordinates><panel_attributes>MemberManager
+--
+--
+/+login(member: Member): void/
+/+register(member: Member): void/
+/+makeRedactor(member: Member): void/
+/+makeAdmin(member: Member): void/
+/+edit(member: Member): void/
+/+logOut(): void/
+/+getMembers(): Member[]/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>540</x><y>110</y><w>200</w><h>160</h></coordinates><panel_attributes>ArticleManager
+--
+--
+/+loadCurrent(url: string): void/
+/+edit(article: Article): void/
+/+remove(article: Article): void/
+/+approve(article: Article): void/
+/+reject(article: Article): void/
+/+getWaitingArticles(): Article[]/
+/+sendNewsletter(): void/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>160</x><y>520</y><w>120</w><h>60</h></coordinates><panel_attributes>Redactor
+--
++signature: string
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>280</y><w>30</w><h>90</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>470</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50</additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>570</y><w>30</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>540</x><y>610</y><w>110</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;90;10</additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>500</y><w>30</w><h>90</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>690</x><y>260</y><w>30</w><h>90</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>340</x><y>380</y><w>100</w><h>70</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;50;80;50;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>380</y><w>140</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>120;90;10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>270</x><y>500</y><w>370</w><h>50</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;30;350;30;350;10</additional_attributes></element></diagram>

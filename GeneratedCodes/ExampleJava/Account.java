@@ -6,7 +6,7 @@ class Account {
 		return id;
 	}
 
-	public setId(int newId) {
+	public void setId(int newId) {
 		this.id = newId;
 	}
 
@@ -14,7 +14,7 @@ class Account {
 		return customerID;
 	}
 
-	public setCustomerID(int newCustomerID) {
+	public void setCustomerID(int newCustomerID) {
 		this.customerID = newCustomerID;
 	}
 

@@ -5,7 +5,7 @@ class Checking extends Account {
 		return interestCost;
 	}
 
-	public setInterestCost(double newInterestCost) {
+	public void setInterestCost(double newInterestCost) {
 		this.interestCost = newInterestCost;
 	}
 

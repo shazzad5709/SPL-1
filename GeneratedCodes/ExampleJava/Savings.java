@@ -5,7 +5,7 @@ class Savings extends Account {
 		return interestPay;
 	}
 
-	public setInterestPay(double newInterestPay) {
+	public void setInterestPay(double newInterestPay) {
 		this.interestPay = newInterestPay;
 	}
 

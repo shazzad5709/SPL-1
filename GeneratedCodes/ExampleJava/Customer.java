@@ -7,7 +7,7 @@ class Customer extends SimpleClass {
 		return address;
 	}
 
-	public setAddress(String newAddress) {
+	public void setAddress(String newAddress) {
 		this.address = newAddress;
 	}
 
@@ -15,7 +15,7 @@ class Customer extends SimpleClass {
 		return phoneNum;
 	}
 
-	public setPhoneNum(String newPhoneNum) {
+	public void setPhoneNum(String newPhoneNum) {
 		this.phoneNum = newPhoneNum;
 	}
 
@@ -23,42 +23,42 @@ class Customer extends SimpleClass {
 		return accountNum;
 	}
 
-	public setAccountNum(int newAccountNum) {
+	public void setAccountNum(int newAccountNum) {
 		this.accountNum = newAccountNum;
 	}
 
 public boolean generalInquiry() {
-			boolean autoGen;
+		boolean autoGen;
 		return autoGen;
 	}
 
 public boolean depositMoney() {
-			boolean autoGen;
+		boolean autoGen;
 		return autoGen;
 	}
 
 public boolean withdrawMoney() {
-			boolean autoGen;
+		boolean autoGen;
 		return autoGen;
 	}
 
 public Account openAccount() {
-			Account autoGen;
+		Account autoGen;
 		return autoGen;
 	}
 
 public Account closeAccount() {
-			Account autoGen;
+		Account autoGen;
 		return autoGen;
 	}
 
 public boolean applyForLoan() {
-			boolean autoGen;
+		boolean autoGen;
 		return autoGen;
 	}
 
 public boolean requestCard() {
-			boolean autoGen;
+		boolean autoGen;
 		return autoGen;
 	}
 

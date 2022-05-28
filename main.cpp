@@ -1089,7 +1089,7 @@ void writeJavaAttributes(ostream& os, const vector<Attribute>& attributes, const
         if(attribute.encapsulation!=PUBLIC)
             os<<"\t"<<attribute.encapsulation<<" "<<type<<" "<<attribute.name<<";\n";
         else
-            os<<"\t"<<attribute.type<<" "<<attribute.name<<";\n";
+            os<<"\t"<<type<<" "<<attribute.name<<";\n";
     }
 }
 
@@ -1112,7 +1112,7 @@ void writeJavaMethods(ostream& os, const vector<Attribute>& attributes, const Cl
                 <<" get"<<capitalize(attribute.name)
                 <<"() {\n\t\treturn "<<attribute.name
                 <<";\n\t}\n\n";
-            os<<"\tpublic"<<" set"<<capitalize(attribute.name)
+            os<<"\tpublic void"<<" set"<<capitalize(attribute.name)
                 <<"("<<type<<" new"
                 <<capitalize(attribute.name)
                 <<") {\n\t\tthis."<<attribute.name

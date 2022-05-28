@@ -6,7 +6,7 @@ class SimpleClass {
 		return id;
 	}
 
-	public setId(int newId) {
+	public void setId(int newId) {
 		this.id = newId;
 	}
 
@@ -14,7 +14,7 @@ class SimpleClass {
 		return name;
 	}
 
-	public setName(String newName) {
+	public void setName(String newName) {
 		this.name = newName;
 	}
 
