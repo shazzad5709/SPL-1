@@ -1,5 +1,5 @@
 <diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;250&lt;/x&gt;&lt;y&gt;290&lt;/y&gt;&lt;w&gt;80&lt;/w&gt;&lt;h&gt;130&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;&amp;lt;-
-extends&lt;/panel_attributes&gt;&lt;additional_attributes&gt;30;10;10;110&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;250&lt;/x&gt;&lt;y&gt;290&lt;/y&gt;&lt;w&gt;80&lt;/w&gt;&lt;h&gt;130&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;&amp;lt;-
+extends&lt;/panel_attributes&gt;&lt;additional_attributes&gt;30;10;10;110&lt;/additional_attributes&gt;&lt;/element&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;250&lt;/x&gt;&lt;y&gt;290&lt;/y&gt;&lt;w&gt;80&lt;/w&gt;&lt;h&gt;130&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;&amp;lt;-
 extends&lt;/panel_attributes&gt;&lt;additional_attributes&gt;30;10;10;110&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;210&lt;/x&gt;&lt;y&gt;620&lt;/y&gt;&lt;w&gt;150&lt;/w&gt;&lt;h&gt;130&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=-
 &lt;/panel_attributes&gt;&lt;additional_attributes&gt;130;10;10;110&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;210&lt;/x&gt;&lt;y&gt;620&lt;/y&gt;&lt;w&gt;150&lt;/w&gt;&lt;h&gt;130&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=-
 &lt;/panel_attributes&gt;&lt;additional_attributes&gt;130;10;10;110&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;110&lt;/x&gt;&lt;y&gt;150&lt;/y&gt;&lt;w&gt;120&lt;/w&gt;&lt;h&gt;140&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;&amp;lt;-
@@ -36,9 +36,7 @@ extends</panel_attributes><additional_attributes>100;10;10;120</additional_attri
 -address: string
 -tellers: Teller[]
 -customers: Customer[]
---</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>20</x><y>340</y><w>110</w><h>210</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>10;10;90;190</additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>420</y><w>70</w><h>130</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>50;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>250</x><y>90</y><w>80</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>250</x><y>90</y><w>80</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-
 extends</panel_attributes><additional_attributes>30;10;10;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>490</x><y>170</y><w>140</w><h>90</h></coordinates><panel_attributes>Account
 --
 -id: int
@@ -49,7 +47,15 @@ extends</panel_attributes><additional_attributes>30;10;10;110</additional_attrib
 --</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>610</x><y>480</y><w>100</w><h>60</h></coordinates><panel_attributes>Savings
 --
 -interestPay: double
---</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>210</y><w>130</w><h>50</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>110;10;10;30</additional_attributes></element><element><id>Relation</id><coordinates><x>432</x><y>250</y><w>110</w><h>250</h></coordinates><panel_attributes>lt=&lt;&lt;-
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>432</x><y>250</y><w>110</w><h>250</h></coordinates><panel_attributes>lt=&lt;&lt;-
 extends</panel_attributes><additional_attributes>80;10;10;230</additional_attributes></element><element><id>Relation</id><coordinates><x>592</x><y>250</y><w>80</w><h>250</h></coordinates><panel_attributes>lt=&lt;&lt;-
-extends</panel_attributes><additional_attributes>10;10;30;230</additional_attributes></element></diagram>
+extends</panel_attributes><additional_attributes>10;10;30;230</additional_attributes></element><element><id>Relation</id><coordinates><x>20</x><y>340</y><w>170</w><h>210</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=0..1
+teaches to &gt; Bank</panel_attributes><additional_attributes>10;10;100;190</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>420</y><w>150</w><h>130</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=0..1
+teaches to &gt; Bank</panel_attributes><additional_attributes>60;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>230</y><w>130</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=0..1
+m2=0..1
+teaches to &gt; Account</panel_attributes><additional_attributes>10;20;110;20</additional_attributes></element></diagram>

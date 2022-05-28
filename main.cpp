@@ -333,7 +333,7 @@ void writeMethodsInHeader(ostream& os, const ClassInfo& classInfo, Encapsulation
     {
         if(method.encapsulation!=prevEncap)
         {
-            os<<method.encapsulation<<endl;
+            os<<method.encapsulation<<":"<<endl;
             prevEncap=method.encapsulation;
         }
 
