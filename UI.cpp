@@ -63,10 +63,6 @@ const char* onOrOff(bool b) {
 Info consoleUI()
 {
     Info info;
-    int x;
-    cout<<"0. Exit\n";
-    cin>>x;
-    if(x==0) exit(1);
     info.umlPath=selectUmlFile();
     info.srcCodePath=selectFolderPath();
     return info;

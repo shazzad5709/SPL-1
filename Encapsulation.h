@@ -19,9 +19,9 @@ std::ostream& operator<<(std::ostream& os, Encapsulation encapsulation)
 {
     switch(encapsulation)
     {
-        case PRIVATE: return os << "private:";
-        case PROTECTED: return os << "protected:";
-        case PUBLIC: return os << "public:";
+        case PRIVATE: return os << "private";
+        case PROTECTED: return os << "protected";
+        case PUBLIC: return os << "public";
         default : throw std::runtime_error("Error! Could not deduce encapsulation!");
     }
 }

@@ -134,7 +134,7 @@ Encapsulation writeAttributesInHeader(ostream& os, const ClassInfo& classInfo)
     {
         if(attribute.encapsulation!=prevEncap)
         {
-            os<<attribute.encapsulation<<endl;
+            os<<attribute.encapsulation<<": "<<endl;
             prevEncap=attribute.encapsulation;
         }
 
@@ -1079,8 +1079,15 @@ void writeJavaAttributes(ostream& os, const vector<Attribute>& attributes, const
 {    
     for(const Attribute& attribute: attributes)
     {
+        string type;
+        if(attribute.type=="std::string")
+            type="String";
+        else if(attribute.type=="bool")
+            type="boolean";
+        else
+            type=attribute.type;
         if(attribute.encapsulation!=PUBLIC)
-            os<<"\t"<<attribute.encapsulation<<" "<<attribute.type<<" "<<attribute.name<<";\n";
+            os<<"\t"<<attribute.encapsulation<<" "<<type<<" "<<attribute.name<<";\n";
         else
             os<<"\t"<<attribute.type<<" "<<attribute.name<<";\n";
     }
@@ -1094,15 +1101,21 @@ void writeJavaMethods(ostream& os, const vector<Attribute>& attributes, const Cl
         //getter and setter
         if(attribute.encapsulation==PRIVATE)
         {
-            os<<"\tpublic "<<attribute.type
+            string type;
+            if(attribute.type=="std::string")
+                type="String";
+            else if(attribute.type=="bool")
+                type="boolean";
+            else
+                type=attribute.type;
+            os<<"\tpublic "<<type
                 <<" get"<<capitalize(attribute.name)
                 <<"() {\n\t\treturn "<<attribute.name
                 <<";\n\t}\n\n";
-            os<<"\tpublic "<<attribute.type
-                <<" set"<<capitalize(attribute.name)
-                <<"("<<attribute.type<<" new"
+            os<<"\tpublic"<<" set"<<capitalize(attribute.name)
+                <<"("<<type<<" new"
                 <<capitalize(attribute.name)
-                <<") {\n\t\t"<<attribute.name
+                <<") {\n\t\tthis."<<attribute.name
                 <<" = new"<<capitalize(attribute.name)
                 <<";\n\t}\n\n";
         }
@@ -1110,10 +1123,18 @@ void writeJavaMethods(ostream& os, const vector<Attribute>& attributes, const Cl
 
     for(const Method& method: classInfo.methods)
     {
+        string type;
+        if(method.returnType=="std::string")
+            type="String";
+        else if(method.returnType=="bool")
+            type="boolean";
+        else
+            type=method.returnType;
+        
         if(method.name==classInfo.name)
         {
             vector<string> baseClassesArguments;
-            os<<classInfo.name<<" (";
+            os<<"\t"<<classInfo.name<<" (";
             
             if(method.argument.size()>0)
             {
@@ -1121,13 +1142,23 @@ void writeJavaMethods(ostream& os, const vector<Attribute>& attributes, const Cl
                 {
                     const Attribute* argument=classInfo.getAttributeByName(method.argument[0].name);
                     string type=argument->type;
+                    
                     os<<method.argument[0].name<<"_";
 
                     if(!hasAttributeWithName(classInfo.attributes, argument->type))
                         baseClassesArguments.push_back(argument->name);
                 }
                 else
-                    os<<method.argument[0].type<<" "<<method.argument[0].name;
+                {
+                    string type;
+                    if(method.argument[0].type=="std::string")
+                        type="String";
+                    else if(method.argument[0].type=="bool")
+                        type="boolean";
+                    else
+                        type=method.argument[0].type;
+                    os<<type<<" "<<method.argument[0].name;
+                }
                 
                 for(size_t k=1; k<method.argument.size(); k++)
                 {
@@ -1142,10 +1173,19 @@ void writeJavaMethods(ostream& os, const vector<Attribute>& attributes, const Cl
                             baseClassesArguments.push_back(argument->name);
                     }
                     else
-                        os<<method.argument[k].type<<" "<<method.argument[k].name;
+                    {
+                        string type;
+                        if(method.argument[0].type=="std::string")
+                            type="String";
+                        else if(method.argument[0].type=="bool")
+                            type="boolean";
+                        else
+                            type=method.argument[0].type;
+                        os<<type<<" "<<method.argument[0].name;
+                    }
                 }
 
-                os<<") {\n";
+                os<<") {\n\t";
                 for(size_t k=0; k<method.argument.size(); k++)
                     os<<classInfo.attributes[k].name<<" = "<<method.argument[k].name<<";\n";
                 os<<"}\n\n";
@@ -1154,26 +1194,51 @@ void writeJavaMethods(ostream& os, const vector<Attribute>& attributes, const Cl
         }
         else
         {
+            string type;
             os<<method.encapsulation<<" ";
             if(!method.returnType.empty())
-                os<<method.returnType<<" ";
+            {
+                if(method.returnType=="std::string")
+                    type="String";
+                else if(method.returnType=="bool")
+                    type="boolean";
+                else
+                    type=method.returnType;
+                os<<type<<" ";
+            }
             else
                 os<<"void ";
             
             os<<method.name<<"(";
             if(method.argument.size()>0)
             {
-                os<<method.argument[0].type<<" "<<method.argument[0].name;
+                string t;
+                if(method.argument[0].type=="std::string")
+                    t="String";
+                else if(method.argument[0].type=="bool")
+                    t="boolean";
+                else
+                    t=method.argument[0].type;
+                os<<t<<" "<<method.argument[0].name;
                 for(size_t k=1; k<method.argument.size(); k++)
+                {
+                    string t;
+                    if(method.argument[k].type=="std::string")
+                        t="String";
+                    else if(method.argument[k].type=="bool")
+                        t="boolean";
+                    else
+                        t=method.argument[k].type;
                     os<<", "<<method.argument[k].type<<" "<<method.argument[k].name;
+                }
             }
 
-            os<<") {\n";
+            os<<") {\n\t";
 
             if(method.returnType==""||method.returnType=="void")
                 os<<"}\n\n";
             else
-                os<<"\t"<<method.returnType<<" autoGen;\n"<<"return autoGen;\n}\n\n";
+                os<<"\t"<<type<<" autoGen;\n"<<"\t\treturn autoGen;\n\t}\n\n";
         }
     }
 }
@@ -1276,7 +1341,7 @@ int main()
         if(string(elem->FirstChildElement("id")->GetText())=="UMLPackage")
             packages.push_back(parsePackage(elem));
 
-    sort(packages.begin(), packages.end(), 
+    std::sort(packages.begin(), packages.end(), 
         [] (Package& a, Package& b) {
             return a.coords.width*a.coords.height > b.coords.width * b.coords.height;
         });
@@ -1308,9 +1373,9 @@ int main()
         if(string(elem->FirstChildElement("id")->GetText())=="Relation")
             createRelation(parseRelation(elem));
     
-    cout<<"\n\t1. C++\n\t2. Java\n\nLanguage: ";
+    std::cout<<"\n\t1. C++\n\t2. Java\n\nLanguage: ";
     int l;
-    cin>>l;
+    std::cin>>l;
     
     if(l==1)
     {
