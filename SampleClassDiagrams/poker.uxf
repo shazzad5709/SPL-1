@@ -1,4 +1,4 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>140</x><y>110</y><w>190</w><h>180</h></coordinates><panel_attributes>Player
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>113</x><y>100</y><w>190</w><h>180</h></coordinates><panel_attributes>Player
 --
 -winnings: float
 -hand: Hand
@@ -9,7 +9,7 @@
 /+adjustWinnings(amount): float/
 /+setHand(hand Hand)/
 /+getHand(): Hand/
-/+drawAllowed(): bool/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>410</x><y>140</y><w>150</w><h>140</h></coordinates><panel_attributes>PokerGame
+/+drawAllowed(): bool/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>393</x><y>130</y><w>160</w><h>140</h></coordinates><panel_attributes>PokerGame
 --
 -player: Player
 --
@@ -17,7 +17,7 @@
 /+reset(): void/
 /+setBet(amount: float): void/
 /+getBet(): float/
-/+getPlayer(): Player/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>390</x><y>620</y><w>150</w><h>160</h></coordinates><panel_attributes>MainWindow
+/+getPlayer(): Player/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>363</x><y>610</y><w>150</w><h>160</h></coordinates><panel_attributes>MainWindow
 --
 -game: int
 --
@@ -26,15 +26,15 @@
 /+playWildPoker(): void/
 /+displayDealButton(): void/
 /+displayPlayerInfo(): void/
-/+MainWindow(): void/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>230</x><y>530</y><w>200</w><h>60</h></coordinates><panel_attributes>Draw
+/+MainWindow(): void/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>203</x><y>520</y><w>200</w><h>60</h></coordinates><panel_attributes>Draw
 --
 --
-/+drawCards(hand: Hand): Player/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>440</y><w>190</w><h>100</h></coordinates><panel_attributes>Wild
+/+drawCards(hand: Hand): Player/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>453</x><y>430</y><w>190</w><h>100</h></coordinates><panel_attributes>Wild
 --
 -wildCard: string
 --
 +Wild()
-/+drawCards(hand: Hand): Player/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>180</x><y>360</y><w>100</w><h>140</h></coordinates><panel_attributes>Hand
+/+drawCards(hand: Hand): Player/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>153</x><y>350</y><w>100</w><h>140</h></coordinates><panel_attributes>Hand
 --
 -card1: string
 -card2: string
@@ -42,12 +42,15 @@
 -card4: string
 -card5: string
 --
-+Hand()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>690</x><y>160</y><w>170</w><h>100</h></coordinates><panel_attributes>Dealer
++Hand()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>663</x><y>150</y><w>170</w><h>100</h></coordinates><panel_attributes>Dealer
 --
 --
 /+shuffle(): void/
 /+getHand(): Hand/
-/+getHand(hand: Hand): Hand/</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>320</x><y>210</y><w>110</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>90;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>200</y><w>160</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>280</y><w>30</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>410</x><y>270</y><w>30</w><h>280</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;260</additional_attributes></element><element><id>Relation</id><coordinates><x>510</x><y>270</y><w>30</w><h>190</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;170</additional_attributes></element><element><id>Relation</id><coordinates><x>140</x><y>280</y><w>270</w><h>430</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>10;10;10;410;250;410</additional_attributes></element><element><id>Relation</id><coordinates><x>290</x><y>580</y><w>120</w><h>90</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>10;10;10;70;100;70</additional_attributes></element><element><id>Relation</id><coordinates><x>530</x><y>530</y><w>100</w><h>170</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>80;10;80;150;10;150</additional_attributes></element></diagram>
+/+getHand(hand: Hand): Hand/</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>383</x><y>260</y><w>40</w><h>280</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>20;10;10;260</additional_attributes></element><element><id>Relation</id><coordinates><x>483</x><y>260</y><w>30</w><h>190</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;170</additional_attributes></element><element><id>Relation</id><coordinates><x>113</x><y>270</y><w>270</w><h>430</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes>10;10;10;410;250;410</additional_attributes></element><element><id>Relation</id><coordinates><x>263</x><y>570</y><w>120</w><h>90</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes>10;10;10;70;100;70</additional_attributes></element><element><id>Relation</id><coordinates><x>503</x><y>520</y><w>100</w><h>170</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes>80;10;80;150;10;150</additional_attributes></element><element><id>Relation</id><coordinates><x>290</x><y>160</y><w>120</w><h>100</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=0..1
+teaches to &gt;</panel_attributes><additional_attributes>10;10;100;80</additional_attributes></element></diagram>

@@ -3,7 +3,6 @@
 #include <string>
 
 #include "SimpleClass.h"
-#include "Bank.h"
 #include "Account.h"
 
 class Customer: public SimpleClass

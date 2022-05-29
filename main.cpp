@@ -1188,14 +1188,14 @@ void writeJavaMethods(ostream& os, const vector<Attribute>& attributes, const Cl
                 os<<") {\n\t";
                 for(size_t k=0; k<method.argument.size(); k++)
                     os<<classInfo.attributes[k].name<<" = "<<method.argument[k].name<<";\n";
-                os<<"}\n\n";
+                os<<"\y}\n\n";
             }
 
         }
         else
         {
             string type;
-            os<<method.encapsulation<<" ";
+            os<<"\t"<<method.encapsulation<<" ";
             if(!method.returnType.empty())
             {
                 if(method.returnType=="std::string")
@@ -1238,7 +1238,7 @@ void writeJavaMethods(ostream& os, const vector<Attribute>& attributes, const Cl
             if(method.returnType==""||method.returnType=="void")
                 os<<"}\n\n";
             else
-                os<<"\t"<<type<<" autoGen;\n"<<"\t\treturn autoGen;\n\t}\n\n";
+                os<<type<<" autoGen;\n"<<"\t\treturn autoGen;\n\t}\n\n";
         }
     }
 }

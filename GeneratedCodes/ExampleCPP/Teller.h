@@ -1,7 +1,6 @@
 #ifndef __TELLER_H__
 #define __TELLER_H__
 #include "SimpleClass.h"
-#include "Bank.h"
 
 class Teller: public SimpleClass
 {

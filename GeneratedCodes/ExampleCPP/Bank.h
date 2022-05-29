@@ -2,6 +2,9 @@
 #define __BANK_H__
 #include <string>
 
+#include "Teller.h"
+#include "Customer.h"
+
 class Bank
 {
 	int bankID;

@@ -1,5 +1,8 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>450</x><y>190</y><w>260</w><h>150</h></coordinates><panel_attributes>Person
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>200</x><y>230</y><w>170</w><h>120</h></coordinates><panel_attributes>PokerGame
 --
-+name: string
-+is: bool
---</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+-player: Player
+--
+/+deal(): Player/
+/+reset(): void/
+/+setBet(amount: float): void/
+/+getBet(): float/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>70</x><y>400</y><w>180</w><h>140</h></coordinates><panel_attributes></panel_attributes><additional_attributes></additional_attributes></element></diagram>

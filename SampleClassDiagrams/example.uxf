@@ -49,13 +49,13 @@ extends</panel_attributes><additional_attributes>10;10;10;110</additional_attrib
 -interestPay: double
 --</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>502</x><y>250</y><w>70</w><h>250</h></coordinates><panel_attributes>lt=&lt;&lt;-
 extends</panel_attributes><additional_attributes>10;10;10;230</additional_attributes></element><element><id>Relation</id><coordinates><x>592</x><y>250</y><w>70</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;-
-extends</panel_attributes><additional_attributes>10;10;10;130</additional_attributes></element><element><id>Relation</id><coordinates><x>20</x><y>340</y><w>170</w><h>210</h></coordinates><panel_attributes>lt=-
+extends</panel_attributes><additional_attributes>10;10;10;130</additional_attributes></element><element><id>Relation</id><coordinates><x>60</x><y>340</y><w>150</w><h>210</h></coordinates><panel_attributes>lt=-
 m1=0..n
 m2=0..1
-teaches to &gt; Bank</panel_attributes><additional_attributes>10;10;100;190</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>420</y><w>150</w><h>130</h></coordinates><panel_attributes>lt=-
+teaches to &gt; Bank</panel_attributes><additional_attributes>60;190;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>420</y><w>140</w><h>130</h></coordinates><panel_attributes>lt=-
 m1=0..n
 m2=0..1
-teaches to &gt; Bank</panel_attributes><additional_attributes>60;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>230</y><w>130</w><h>50</h></coordinates><panel_attributes>lt=-
+teaches to &gt; Bank</panel_attributes><additional_attributes>10;110;50;10</additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>230</y><w>130</w><h>50</h></coordinates><panel_attributes>lt=-
 m1=0..1
 m2=0..1
 teaches to &gt; Account</panel_attributes><additional_attributes>10;20;110;20</additional_attributes></element></diagram>
